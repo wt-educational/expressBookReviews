@@ -19,14 +19,22 @@ public_users.get('/',function (req, res) {
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
-  //Write your code here 
 
-   // users = users.filter((user) => user.email != email);
+    
+    const isbn = req.params.isbn;
 
-   //     const isbn = req.params.isbn;
-   //     return res.send(books[isbn]);
+    const book = Object.values(books)
+        .find(book => book.isbn === isbn);
 
-   return res.status(300).json({message: "Yet to be implemented"});
+    if (!book) {
+        return res.status(404).json({
+            message: "Book not found"
+        });
+    }
+
+    return res.json(book);
+
+   // return res.status(300).json({message: "Yet to be implemented"});
  });
   
 // Get book details based on author
