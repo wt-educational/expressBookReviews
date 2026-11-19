@@ -58,7 +58,35 @@ regd_users.post("/login", (req,res) => {
 
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
-  return res.status(300).json({message: "Yet to be implemented"});
+    /*
+    // Todo: Add/Edit review to finish finals
+    const isbn = req.params.isbn;
+    const username = req.session.authorization.username;
+    const reviewText = req.body.review;
+    //const book = books[isbn];
+    const book = Object.values(books).find(book => book.isbn === isbn);
+  
+    if (!book) {
+      return res.status(404).send("Book not found");
+    }
+  
+    if (!Array.isArray(book.reviews)) {
+      book.reviews = [];
+    }
+  
+    const existingReview = book.reviews.find(
+      (item) => item.username === username
+    );
+  
+    if (existingReview) {
+      existingReview.review = reviewText;
+    } else {
+      book.reviews.push({ username, review: reviewText });
+    }
+  
+    res.send(book.reviews);
+    */
+    return res.status(300).json({message: "Yet to be implemented"});
 });
 
 module.exports.authenticated = regd_users;
