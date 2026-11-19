@@ -41,7 +41,7 @@ public_users.get('/isbn/:isbn',function (req, res) {
 public_users.get('/author/:author',function (req, res) {
     const author = req.params.author;
     const book = Object.values(books)
-        .find(book => book.author === author);
+        .filter(book => book.author === author);
     if (!book) {
         return res.status(404).json({
             message: "Book not found"
