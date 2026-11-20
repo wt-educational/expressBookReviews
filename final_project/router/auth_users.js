@@ -64,20 +64,37 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     const reviewText = req.body.review;
     const book = Object.values(books).find(book => book.isbn === isbn);
     if (!book) {
-      return res.status(404).send("Book not found");
+    return res.status(404).send("Book not found");
     }
     if (!Array.isArray(book.reviews)) {
-      book.reviews = [];
+    book.reviews = [];
     }
     const existingReview = book.reviews.find(
-      (item) => item.username === username
+    (item) => item.username === username
     );
     if (existingReview) {
-      existingReview.review = reviewText;
+    existingReview.review = reviewText;
     } else {
-      book.reviews.push({ username, review: reviewText });
+    book.reviews.push({ username, review: reviewText });
     }
     res.send(book.reviews);
+});
+
+// Delete a book review
+regd_users.delete("/auth/review/:isbn", (req, res) => {
+    const isbn = req.params.isbn;
+    const username = req.session.authorization.username;
+    const book = Object.values(books).find(book => book.isbn === isbn);
+    if (!book) {
+    	return res.status(404).send("Book not found");
+    }
+    if (!Array.isArray(book.reviews)) {
+    	book.reviews = [];
+    }
+    book.reviews = book.reviews.filter(
+        item => item.username !== username
+    );
+    res.send(`${username}'s book review deleted`);
 });
 
 module.exports.authenticated = regd_users;
