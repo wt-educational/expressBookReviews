@@ -32,9 +32,8 @@ public_users.get('/',function (req, res) {
             },6000)})
         //Call the promise and wait for it to be resolved and then print a message.
         myPromise.then((books) => {
-            res.send(JSON.stringify({books}, null, 3))
+            return res.send(JSON.stringify({books}, null, 3));
         })
-
 });
 
 // Get book details based on ISBN
