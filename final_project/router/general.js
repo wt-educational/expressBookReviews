@@ -25,9 +25,16 @@ public_users.post("/register", (req,res) => {
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
-  //Write your code here
-  return res.send(JSON.stringify({books}, null, 3));
-  // return res.status(300).json({message: "Yet to be implemented"});
+        //Creating a promise method. The promise will get resolved when timer times out after 6 seconds.
+        let myPromise = new Promise((resolve,reject) => {
+            setTimeout(() => {
+            resolve(books);
+            },6000)})
+        //Call the promise and wait for it to be resolved and then print a message.
+        myPromise.then((books) => {
+            res.send(JSON.stringify({books}, null, 3))
+        })
+
 });
 
 // Get book details based on ISBN
@@ -41,8 +48,7 @@ public_users.get('/isbn/:isbn',function (req, res) {
         });
     }
     return res.json(book);
-    // return res.status(300).json({message: "Yet to be implemented"});
- });
+});
   
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
@@ -55,7 +61,6 @@ public_users.get('/author/:author',function (req, res) {
         });
     }
     return res.send(JSON.stringify({book}, null, 3));
-    //return res.status(300).json({message: "Yet to be implemented"});
 });
 
 // Get all books based on title
@@ -69,7 +74,6 @@ public_users.get('/title/:title',function (req, res) {
         });
     }
     return res.send(JSON.stringify({book}, null, 3));
-    //return res.status(300).json({message: "Yet to be implemented"});
 });
 
 //  Get book review
@@ -83,7 +87,6 @@ public_users.get('/review/:isbn',function (req, res) {
         });
     }
     return res.json(book.reviews);
-    //return res.status(300).json({message: "Yet to be implemented"});
 });
 
 module.exports.general = public_users;
